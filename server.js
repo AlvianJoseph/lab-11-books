@@ -30,7 +30,6 @@ app.post('/searches', createSearch);
 function Book(info) {
     const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
     this.image = info.imageLinks.thumbnail || placeholderImage;
-
     this.title = info.title || 'No title available';
 
 }
@@ -47,17 +46,13 @@ function createSearch(request, response) {
 
     console.log(request.body);
 
-    if (request.body.search[1] === 'title') {
-        url += `+intitle:${request.body.search[0]}`;
-        console.log(url);
-    }
-    if (request.body.search[1] === 'author') {
-        url += `+inauthor:${request.body.search[0]}`;
-        console.log(url);
-    }
+    if (request.body.search[1] === 'title') {url += `+intitle:${request.body.search[0]}`;}
+    if (request.body.search[1] === 'author') {url += `+inauthor:${request.body.search[0]}`;}
+    if (request.body.search[1] === 'genre') {url += `+subject:${request.body.search[0]}`;}
+
 
     superagent.get(url)
-        // .then(apiResponse => response.send(apiResponse.body.items)); To view data structure
+        // .then(apiResponse => response.send(apiResponse.body.items));
         .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
         .then(books => response.render('pages/searches/show', { searchResults: books }));
 
