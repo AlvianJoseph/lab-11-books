@@ -24,7 +24,6 @@ app.get('/', newSearch);
 app.post('/searches', createSearch);
 
 
-app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 // HELPER FUNCTIONS
 // Only show part of this to get students started
@@ -57,6 +56,8 @@ function createSearch(request, response) {
   // how will we handle errors?
 }
 
+
+app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 // Catch-all
 app.get('*', (request, response) => response.status(404).send('This route does not exist'));
