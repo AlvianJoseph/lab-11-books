@@ -22,8 +22,6 @@ app.get('/', newSearch);
 // Creates a new search to the Google Books API
 app.post('/searches', createSearch);
 
-// Catch-all
-app.get('*', (request, response) => response.status(404).send('This route does not exist'));
 
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
@@ -57,3 +55,7 @@ function createSearch(request, response) {
     .then(results => response.render('pages/searches/show', {searchResults: results}));
   // how will we handle errors?
 }
+
+
+// Catch-all
+app.get('*', (request, response) => response.status(404).send('This route does not exist'));
