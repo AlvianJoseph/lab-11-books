@@ -8,6 +8,7 @@
    
  </head>
  <body>
+   <div id="banner"></div>
    <main>
      <nav id="navbar">
        <ul class="navul">
@@ -22,13 +23,13 @@
        <fieldset id="titlebutton">
          <label for="title">
            <span>Title</span>
-           <input type="radio" name="search" value="title" required>
+           <input class="radio" type="radio" name="search" value="title" required>
          </label>
        </fieldset>
        <fieldset id="authorbutton">
          <label for="author">
            <span>Author</span>
-           <input type="radio" name="search" value="author" required>
+           <input class="radio" type="radio" name="search" value="author" required>
          </label>
        </fieldset>
        <button id="submitbutton" type="submit">Search the Google Books API</button>
@@ -38,7 +39,6 @@
           <input type="radio" name="search" value="genre" required>
         </label>
       </fieldset>
-      <button id="submitbutton" type="submit">Search the Google Books API</button>
      </form>
    </main>
  </body>
