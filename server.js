@@ -62,4 +62,4 @@ function createSearch(request, response) {
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
 // Catch-all
-app.get('*', (request, response) => response.status(404).send('This route does not exist'));
+app.get('*', (request, response) => response.render('pages/error'));
