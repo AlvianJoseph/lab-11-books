@@ -19,6 +19,7 @@ app.set('view engine', 'ejs');
 // Renders the search form
 app.get('/', newSearch);
 
+
 // Creates a new search to the Google Books API
 app.post('/searches', createSearch);
 
