@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Search Results</title>
+    <link rel="stylesheet" href="styles/modules.css">
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/layout.css">
@@ -10,13 +10,16 @@
 
 <body>
     <h1>Results</h1>
-    <p><a href="/">Home</a></p>
-    <ul>
-        <% searchResults.forEach(book => { %>
-        <li><img src="<%= book.image %>" alt=""> <%= book.title %> </li>
-        <% }) %>
-
-    </ul>
+    <div class="container">
+    <% searchResults.forEach(book => { %>
+    <section class =books>
+       <a href="<%= book.link %>"><h2> <%= book.title %> </h2></a>
+        <p>Written by: <%= book.authors %></p>
+        <img src="<%= book.image %>">
+        <p class="description"><%= book.description %></p>
+    </section>
+    <% }) %>
+    </div>
 </body>
 
 </html>
