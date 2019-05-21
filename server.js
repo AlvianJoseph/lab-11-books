@@ -31,7 +31,9 @@ function Book(info) {
     const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
     this.image = info.imageLinks.thumbnail || placeholderImage;
     this.title = info.title || 'No title available';
-
+    this.description = info.description;
+    this.authors = info.authors;
+    this.link = info.infoLink;
 }
 
 // Note that .ejs file extension is not required
