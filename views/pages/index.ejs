@@ -2,26 +2,36 @@
 <html lang="en">
  <head>
    <title>Book Collection</title>
+   <link rel="stylesheet" href="styles/reset.css">
    <link rel="stylesheet" href="styles/base.css">
+   <link rel="stylesheet" href="styles/layout.css">
+   
  </head>
  <body>
    <main>
-     <h4>Search by Title or Author</h4>
+     <nav id="navbar">
+       <ul class="navul">
+         <li>Home</li>
+         <li>Past Searches</li>
+         <li>Popular Searches</li>
+        </ul>
+     </nav>
+     <h4 id="title">Search by Title or Author</h4>
      <form action="/searches" method="post">
-       <input type="text" name="search" placeholder="Enter a title or author" required>
-       <fieldset>
+       <input class="enterbook" type="text" name="search" placeholder="Enter a title or author" required>
+       <fieldset id="titlebutton">
          <label for="title">
            <span>Title</span>
            <input type="radio" name="search" value="title" required>
          </label>
        </fieldset>
-       <fieldset>
+       <fieldset id="authorbutton">
          <label for="author">
            <span>Author</span>
            <input type="radio" name="search" value="author" required>
          </label>
        </fieldset>
-       <button type="submit">Search the Google Books API</button>
+       <button id="submitbutton" type="submit">Search the Google Books API</button>
      </form>
    </main>
  </body>
