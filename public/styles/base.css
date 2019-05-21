@@ -1,4 +1,11 @@
-body{
-    background-color: aqua;
+#banner{
+    background-image: url(../images/bookbackground2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
-
+.enterbook:hover{
+    background-color:  hsla(214, 90%, 49%, 0.5);
+}
+input:click{
+  background-color: hsla(214, 90%, 49%, 0.5);
+}
