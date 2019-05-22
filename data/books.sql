@@ -4,14 +4,15 @@ CREATE TABLE IF NOT EXISTS books (
     id SERIAL PRIMARY KEY,
     authors VARCHAR(255),
     title VARCHAR(255),
-    isbn NUMERIC(10, 7),
+    isbn VARCHAR(255),
     genre VARCHAR(255),
     image VARCHAR(255),
     description VARCHAR(1000),
     bookshelf VARCHAR(25)
 );
 
-INSERT INTO books (title, authors, isbn, image, description, bookshelf) VALUES (
+INSERT INTO books (title, authors, isbn, image, description, bookshelf) 
+VALUES (
   'Dune',
   'Frank Herbert',
   'ISBN_13 9780441013593',

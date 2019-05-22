@@ -1,4 +1,5 @@
 'use strict';
+require('dotenv').config();
 
 // Application Dependencies
 const express = require('express');
@@ -23,19 +24,14 @@ app.set('view engine', 'ejs');
 
 // API Routes
 // Renders the search form
-app.get('/', renderIndex);
+app.get('/', renderHomepage);
+app.get('/new', newSearch);
 
 
 // Creates a new search to the Google Books API
 app.post('/searches', createSearch);
 
-//----------------Create Error Handler------------------------//
-function handleError(err, res) {
-    console.error(err);
-    if (res) res.status(500).send('Sorry, something went wrong');
-}
 
-// HELPER FUNCTIONS
 function Book(info) {
     const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
     this.image = info.imageLinks.thumbnail || placeholderImage;
@@ -46,47 +42,32 @@ function Book(info) {
     this.isbn = info.industryIdentifiers[0];
 }
 
-// Note that .ejs file extension is not required
-function renderIndex(request, response) {
-    let SQL = `SELECT * FROM books`;
+function renderHomepage(request, response) {
+    let SQL = `SELECT * FROM books;`;
     client.query(SQL)
-        .then(databaseResult => {
-            response.render('pages/searches/show', { books: databaseResult.rows })
-        })
-        .catch(err => handleError(err, response));
+    .then( databaseResult => (response.render('pages/index', {books: databaseResult.rows})));
+    
 }
 
-function saveBook(book) {
-    let query = '';
-    const bookInsert = `INSERT INTO books(author, title, isbn, image, description) 
-    VALUES(${book.authors},
-            ${book.title},
-            ${book.isbn},
-            ${book.image},
-            ${book.description},);`;
-    query += bookInsert;
-    client.query(query)
+function newSearch(request, response) {
+    response.render('pages/searches/new');
 }
 
-// No API key required
 // Console.log request.body and request.body.search
 function createSearch(request, response) {
     let url = 'https://www.googleapis.com/books/v1/volumes?q=';
     let query = request.body.search[0];
     console.log(query);
 
-    if (request.body.search[1] === 'title') { url += `+intitle:${request.body.search[0]}`; }
-    if (request.body.search[1] === 'author') { url += `+inauthor:${request.body.search[0]}`; }
-    if (request.body.search[1] === 'genre') { url += `+subject:${request.body.search[0]}`; }
+    if (request.body.search[1] === 'title') {url += `+intitle:${request.body.search[0]}`;}
+    if (request.body.search[1] === 'author') {url += `+inauthor:${request.body.search[0]}`;}
+    if (request.body.search[1] === 'genre') {url += `+subject:${request.body.search[0]}`;}
 
 
     superagent.get(url)
         // .then(apiResponse => response.send(apiResponse.body.items));
         .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-        .then(books => {
-            saveBooks(books);
-            return response.render('pages/searches/show', { searchResults: books, searchQuery: query });
-        });
+        .then(books => response.render('pages/searches/show', { searchResults: books, searchQuery: query }));
 }
 
 
