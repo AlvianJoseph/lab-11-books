@@ -28,6 +28,7 @@ app.post('/searches', createSearch);
 // HELPER FUNCTIONS
 // Only show part of this to get students started
 function Book(info) {
+
     const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
     this.image = info.imageLinks.thumbnail || placeholderImage;
     this.title = info.title || 'No title available';
@@ -45,8 +46,8 @@ function newSearch(request, response) {
 // Console.log request.body and request.body.search
 function createSearch(request, response) {
     let url = 'https://www.googleapis.com/books/v1/volumes?q=';
-
-    console.log(request.body);
+    let query = request.body.search[0];
+    console.log(query);
 
     if (request.body.search[1] === 'title') {url += `+intitle:${request.body.search[0]}`;}
     if (request.body.search[1] === 'author') {url += `+inauthor:${request.body.search[0]}`;}
@@ -56,8 +57,7 @@ function createSearch(request, response) {
     superagent.get(url)
         // .then(apiResponse => response.send(apiResponse.body.items));
         .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-        .then(books => response.render('pages/searches/show', { searchResults: books }));
-
+        .then(books => response.render('pages/searches/show', { searchResults: books, searchQuery: query }));
 }
 
 
