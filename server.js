@@ -28,6 +28,7 @@ app.get('/', renderIndex);
 
 // Creates a new search to the Google Books API
 app.post('/searches', createSearch);
+app.get('/bookshelf', showBookshelf);
 
 //----------------Create Error Handler------------------------//
 function handleError(err, res) {
@@ -46,6 +47,9 @@ function Book(info) {
     this.isbn = info.industryIdentifiers[0];
 }
 
+function showBookshelf(request, response) {
+    response.render('pages/searches/bookshelf');
+}
 // Note that .ejs file extension is not required
 function renderIndex(request, response) {
     response.render('pages/index');
