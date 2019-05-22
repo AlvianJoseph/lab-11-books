@@ -11,29 +11,19 @@
       <%- include('../layout/header') %>  
   </header>
   <main>
-    <h4 id="title">Search For Your Next Favorite Book</h4>
-    <form action="/searches" method="post">
-      <input class="enterbook" type="text" name="search" placeholder="Enter a title or author" required>
-      <fieldset id="titlebutton">
-        <label for="title">
-          <span>Title</span>
-          <input class="radio" type="radio" name="search" value="title" required>
-        </label>
-      </fieldset>
-      <fieldset id="authorbutton">
-        <label for="author">
-          <span>Author</span>
-          <input class="radio" type="radio" name="search" value="author" required>
-        </label>
-      </fieldset>
-      <fieldset id="genrebutton">
-        <label for="genre">
-          <span>Genre</span>
-          <input type="radio" name="search" value="genre" required>
-        </label>
-      </fieldset>
-      <button id="submitbutton" type="submit">Search the Google Books API</button>
-    </form>
+    <div>
+        <div class="container">
+            <% books.forEach(book => { %>
+            <section class =books>
+               <a href="<%= book.link %>"><h2> <%= book.title %> </h2></a>
+                <p>Written by: <%= book.authors %></p>
+                <img src="<%= book.image %>" alt="<%= book.title %>">
+                <p class="description"><%= book.description %></p>
+            </section>
+            <% }) %>
+            </div>
+        
+    </div>
   </main>
 </body>
 

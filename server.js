@@ -1,5 +1,5 @@
 'use strict';
-
+require('dotenv').config();
 // Application Dependencies
 const express = require('express');
 const superagent = require('superagent');
@@ -52,18 +52,12 @@ function showBookshelf(request, response) {
 }
 // Note that .ejs file extension is not required
 function renderIndex(request, response) {
-    response.render('pages/index');
+   let SQL = `SELECT * FROM books;`;
+    client.query(SQL)
+    .then( databaseResult => (response.render('pages/index', {books: databaseResult.rows})));
+
 }
 
-function getBooks(request, response) {
-    let query = request.body.search[0];
-    let SQL = `SELECT * FROM books where query=${query};`;
-    client.query(SQL)
-        .then(databaseResult => {
-            response.render('pages/searches/show', { book: databaseResult.rows[0] })
-        })
-        .catch(err => handleError(err, response));
-}
 
 function saveBooks(books) {
     let query = '';
