@@ -70,6 +70,7 @@ main{
     #submitbutton{
         grid-row-start: 3;
         grid-column: 1/4;
+    }
 }
 
 @media(min-width:500px) and (max-width:775px) {
