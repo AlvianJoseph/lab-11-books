@@ -48,30 +48,24 @@ function Book(info) {
 
 // Note that .ejs file extension is not required
 function renderIndex(request, response) {
-    response.render('pages/index');
-}
-
-function getBooks(request, response) {
-    let query = request.body.search[0];
-    let SQL = `SELECT * FROM books where query=${query};`;
+    let SQL = `SELECT * FROM books`;
     client.query(SQL)
         .then(databaseResult => {
-            response.render('pages/searches/show', { book: databaseResult.rows[0] })
+            response.render('pages/searches/show', { books: databaseResult.rows })
         })
         .catch(err => handleError(err, response));
 }
 
-function saveBooks(books) {
+function saveBook(book) {
     let query = '';
-    books.forEach(book => {
-        const bookInsert = `INSERT INTO books(author, title, isbn, image, description) 
-        VALUES(${book.authors},${book.title},${book.isbn},${book.image},${book.description},);`;
-        query += bookInsert;
-        client.query(query);        
-    })
-    // let SQL = `INSERT INTO books(id, author, title, isbn, genre, img_url, description, bookshelf) 
-    // VALUES($1,$2,$3,$4,$5,$6,$7,$8);`;
-    // let values = [id, author, title, isbn, genre, img_url, description, bookshelf]
+    const bookInsert = `INSERT INTO books(author, title, isbn, image, description) 
+    VALUES(${book.authors},
+            ${book.title},
+            ${book.isbn},
+            ${book.image},
+            ${book.description},);`;
+    query += bookInsert;
+    client.query(query)
 }
 
 // No API key required
