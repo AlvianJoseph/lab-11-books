@@ -1,11 +1,30 @@
+*{
+    font-family: 'Rancho', cursive;
+    /* font-family: 'Macondo Swash Caps', cursive; */
+}
+
+
 #banner{
     background-image: url(../images/bookbackground2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    height: 100px;
+    font-family: 'Rancho', cursive;
+
 }
 .enterbook:hover{
     background-color:  hsla(214, 90%, 49%, 0.5);
 }
-input:click{
+input:active{
   background-color: hsla(214, 90%, 49%, 0.5);
+}
+
+#submitbutton:hover {
+    background-color:  hsla(214, 90%, 49%, 0.5);
+
+}
+
+#submitbutton:active {
+    background-color:  hsla(123, 90%, 49%, 0.5);
+
 }
