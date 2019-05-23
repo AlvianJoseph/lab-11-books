@@ -80,7 +80,7 @@ function doSearch(request, response) {
     superagent.get(url)
         // .then(apiResponse => response.send(apiResponse.body.items));
         .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-        .then(books => response.render('pages/searches/show', { searchResults: books, searchQuery: query, formAction: 'update',
+        .then(books => response.render('pages/searches/show', { searchResults: books, searchQuery: query, formAction: 'create',
      }));
 }
 
@@ -88,14 +88,14 @@ function newSearch(request, response) {
     response.render('pages/searches/new');
 }
 
-function createBook(request, response) {
-    console.log(request.body);
-    const body = request.body;
+// function createBook(request, response) {
+//     console.log(request.body);
+//     const body = request.body;
   
-    client.query('INSERT INTO books (title, author, description, image) VALUES ($1, $2, $3, $4)', [body.title, body.author, body.description, body.image])
+//     client.query('INSERT INTO books (title, author, description, image) VALUES ($1, $2, $3, $4)', [body.title, body.author, body.description, body.image])
   
-    .then(()=> response.redirect('/'));
-}
+//     .then(()=> response.redirect('/'));
+// }
 
 function getSpecificBook(request, response) {
     const SQLbyId = 'SELECT * FROM books WHERE id=$1;';
@@ -113,15 +113,18 @@ function updateBook(request, response) {
     // use request.params.task_id === whatever task we were on
     let values = [title, authors, description, isbn, bookshelf, request.params.id];
     client.query(SQL, values)
-    .then(result => console.log(result.rows));
+    .then(result => console.log(result.rows))
+    .catch(err=> console.error(err));
+
   }
 
   function saveBook(request, response) {
-    let SQL = `INSERT INTO books (title, authors, description, isbn, bookshelf, id) 
+    let { title, authors, description, isbn, bookshelf, image } = request.body;  
+    let SQL = `INSERT INTO books (title, authors, description, isbn, bookshelf, image) 
     VALUES ( $1,$2,$3,$4,$5,$6)`;
-    let values = [title, authors, description, isbn, bookshelf, request.params.id];
+    let values = [title, authors, description, isbn, bookshelf, image];
     client.query(SQL, values)
-    .then(result => response.redirect(`/books/${result.rows[0].id}`))
+    .then(() => response.status(204).send())
         .catch(err=> console.error(err));
 
   }
