@@ -86,17 +86,18 @@ function createBook(request, response) {
     console.log(request.body);
     const body = request.body;
   
-    client.query('INSERT INTO books (title, author, description, image) VALUES ($1, $2, $3, $4)', [body.title, body.author, body.description, body.image]);
+    client.query('INSERT INTO books (title, author, description, image) VALUES ($1, $2, $3, $4)', [body.title, body.author, body.description, body.image])
   
-    //redirect them to home
-    response.redirect('/');
+    .then(()=> response.redirect('/'));
 }
 
 function getSpecificBook(request, response) {
     const SQLbyId = 'SELECT * FROM books WHERE id=$1;';
-        client.query(SQLbyId, [request.params.book_id]).then(result => {
-            response.render('pages/books/detail.ejs', { showBook: result.rows[0] });
+        client.query(SQLbyId, [request.params.id]).then(result => {
+            response.send(result.rows[0])
+            // response.render('pages/books/detail.ejs', { showBook: result.rows[0] });
         })
+        .catch(err=> console.error(err));
 }
 
 function updateBook(request, response) {
@@ -104,7 +105,7 @@ function updateBook(request, response) {
 }
 
 function deleteBook(request, response) {
-    client.query('DELETE FROM books WHERE id=$1', [request.params.book_id])
-    response.redirect('/');
+    client.query('DELETE FROM books WHERE id=$1', [request.params.id])
+    .then(result => response.redirect('/'));
 }
 
