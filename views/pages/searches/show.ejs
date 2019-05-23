@@ -9,14 +9,17 @@
     <h1>Here are the results for <%= searchQuery %></h1>
     <div class="container">
     <% searchResults.forEach(book => { %>
-    <section class =books>
+    <section class='books' >
        <a href="<%= book.link %>"><h2> <%= book.title %> </h2></a>
         <p>Written by: <%= book.authors %></p>
         <img src="<%= book.image %>" alt="<%= book.title %>">
-        <p class="description"><%= book.description %></p>
-        <button>Select this book</button>
+        <p class="descriptionOff" id='<%= book.title %>'><%= book.description %></p>
+        <button class='seeMore' >See More</button>
     </section>
     <% }) %>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
