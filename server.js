@@ -40,12 +40,16 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 app.get('/', loadHomePage);
 app.post('/searches', doSearch);
 app.get('/new', newSearch);
-app.post('/books', createBook);
+app.post('/books', saveBook);
 app.get('/books/:id', getSpecificBook);
 app.put('/books/:id', updateBook);
 app.delete('/books/:id', deleteBook);
 app.get('/form', showForm);
 app.get('*', (request, response) => response.status(404).send('This route does not exist'));
+
+function handleError(error, response) {
+    response.render('pages/error', { error: 'Uh Oh' });
+  }
 
 function Book(info) {
     const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
@@ -54,7 +58,7 @@ function Book(info) {
     this.description = info.description;
     this.authors = info.authors;
     this.link = info.infoLink;
-    this.isbn = info.industryIdentifiers[0].indentifier;
+    this.isbn = Object.values(info.industryIdentifiers[0]);
 }
 
 // Request Handlers
@@ -76,7 +80,8 @@ function doSearch(request, response) {
     superagent.get(url)
         // .then(apiResponse => response.send(apiResponse.body.items));
         .then(apiResponse => apiResponse.body.items.map(bookResult => new Book(bookResult.volumeInfo)))
-        .then(books => response.render('pages/searches/show', { searchResults: books, searchQuery: query }));
+        .then(books => response.render('pages/searches/show', { searchResults: books, searchQuery: query, formAction: 'update',
+     }));
 }
 
 function newSearch(request, response) {
@@ -102,8 +107,24 @@ function getSpecificBook(request, response) {
 }
 
 function updateBook(request, response) {
-    response.send('updateBook');
-}
+    let { title, authors, description, isbn, bookshelf } = request.body;
+    // need SQL to update the specific task that we were on
+    let SQL = `UPDATE books SET title=$1, authors=$2, description=$3, isbn=$4, bookshelf=$5 WHERE id=$6;`;
+    // use request.params.task_id === whatever task we were on
+    let values = [title, authors, description, isbn, bookshelf, request.params.id];
+    client.query(SQL, values)
+    .then(result => console.log(result.rows));
+  }
+
+  function saveBook(request, response) {
+    let SQL = `INSERT INTO books (title, authors, description, isbn, bookshelf, id) 
+    VALUES ( $1,$2,$3,$4,$5,$6)`;
+    let values = [title, authors, description, isbn, bookshelf, request.params.id];
+    client.query(SQL, values)
+    .then(result => response.redirect(`/books/${result.rows[0].id}`))
+        .catch(err=> console.error(err));
+
+  }
 
 function deleteBook(request, response) {
     client.query('DELETE FROM books WHERE id=$1', [request.params.id])
