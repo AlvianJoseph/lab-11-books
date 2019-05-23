@@ -74,16 +74,17 @@ section {
 }
 
 @media(min-width: 480px){
-    *{
-        background: url(/public/images/bookbackground2.jpg); 
-    }
+   *{
+        
+   }
     
     h4{
         font-size: 150%;
         margin-left: 30%;
     }
 
-    form{
+    #newsearch{
+        border: 1px solid black;
         margin: 0 auto;
         max-width: 50%;
         display: grid;
@@ -115,5 +116,50 @@ section {
     #submitbutton{
         grid-column: 1/4;
         grid-row-start: 3;
+    }
+
+/* grid for the form.ejs */
+    .view-title{
+        font-size: 150%;
+        margin-left: 40%;
+    }
+
+    #editbook{
+        margin: 0 auto;
+        max-width: 50%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 10% 10% 1fr 10%  10%  1fr;
+        grid-gap: 5% ;
+    }
+
+    #title{
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    #author{
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    #description{
+        grid-column: 1;
+        grid-row: 3;
+    }
+
+    #isbn{
+        grid-column: 1;
+        grid-row: 4;
+    }
+
+    #bookself{
+        grid-column: 1;
+        grid-row: 5;
+    }
+
+    #subbutton{
+        grid-column: 1;
+        grid-row: 6;
     }
 }
