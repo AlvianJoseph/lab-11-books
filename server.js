@@ -7,7 +7,7 @@ require('dotenv').config();
 const express = require('express');
 const pg = require('pg');
 const superagent = require('superagent');
-// const methodOverride = require('method-override');
+const methodOverride = require('method-override');
 
 // Application Setup
 const app = express();
@@ -17,13 +17,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('./public'));
 
 
-// app.use(methodOverride((request, response) => {
-//     if (request.body && typeof request.body === 'object' && '_method' in request.body) {
-//         let method = request.body._method;
-//         delete request.body._method;
-//         return method;
-//     }
-// }))
+app.use(methodOverride((request, response) => {
+    if (request.body && typeof request.body === 'object' && '_method' in request.body) {
+        let method = request.body._method;
+        delete request.body._method;
+        return method;
+    }
+}))
 
 // Database Setup
 const client = new pg.Client(process.env.DATABASE_URL);
@@ -44,6 +44,7 @@ app.post('/books', createBook);
 app.get('/books/:id', getSpecificBook);
 app.put('/books/:id', updateBook);
 app.delete('/books/:id', deleteBook);
+app.get('/form', showForm);
 app.get('*', (request, response) => response.status(404).send('This route does not exist'));
 
 function Book(info) {
@@ -109,3 +110,9 @@ function deleteBook(request, response) {
     .then(result => response.redirect('/'));
 }
 
+
+function showForm(request, response) {
+    response.render('pages/books/form', {formAction: 'update', 
+book: {title: 'Blah', authors: 'Me', description: 'The best book ever', isbn: '12342321' }});
+
+}
