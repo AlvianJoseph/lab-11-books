@@ -44,7 +44,7 @@ app.post('/books', createBook);
 app.get('/books/:id', getSpecificBook);
 app.put('/books/:id', updateBook);
 app.delete('/books/:id', deleteBook);
-app.get('*', (request, response) => response.status(404).send('This route does not exist'));
+app.get('*', (request, response) => response.render('pages/error'));
 
 function Book(info) {
     const placeholderImage = 'https://i.imgur.com/J5LVHEL.jpg';
