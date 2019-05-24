@@ -22,6 +22,10 @@
                 <p>Written by: <%= book.authors %></p>
                 <img src="<%= book.image %>" alt="<%= book.title %>">
                 <p class="descriptionOn"><%= book.description %></p>
+                <form id="delete-book" action="/books/<%- book.id %>" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <input type="submit" value="delete">
+                </form>
             </section>
             <% }) %>
             </div>
