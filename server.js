@@ -44,7 +44,7 @@ app.post('/books', saveBook);
 app.get('/books/:id', getSpecificBook);
 app.put('/books/:id', updateBook);
 app.delete('/books/:id', deleteBook);
-app.get('*', (request, response) => response.status(404).send('This route does not exist'));
+app.get('*', handleError);
 
 function handleError(error, response) {
     response.render('pages/error', { error: 'Uh Oh' });
@@ -66,6 +66,8 @@ function loadHomePage(request, response) {
     client.query(SQL)
         .then(databaseResult => (response.render('pages/index', { books: databaseResult.rows, formAction: 'update' })))
 }
+
+
 
 function doSearch(request, response) {
     let url = 'https://www.googleapis.com/books/v1/volumes?q=';

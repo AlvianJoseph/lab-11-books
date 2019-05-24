@@ -1,20 +1,14 @@
 
-
-
-  
-
 @media(min-width: 480px){
-   *{
-        
-   }
     
     h4{
+        line-height: 100px;
         font-size: 150%;
         margin-left: 30%;
     }
 
     #newsearch{
-        border: 1px solid black;
+        /* border: 1px solid black; */
         margin: 0 auto;
         max-width: 50%;
         display: grid;
@@ -31,16 +25,19 @@
     #titlebutton{
         grid-column: 1/2;
         grid-row-start: 2;
+        background-color: bisque;
     }
 
     #authorbutton{
         grid-column: 2/3;
         grid-row-start: 2;
+        background-color: bisque;
     }
 
     #genrebutton{
         grid-column: 3/4;
         grid-row-start: 2;
+        background-color: bisque;
     }
 
     #submitbutton{
@@ -50,8 +47,10 @@
 
 /* grid for the form.ejs */
     .view-title{
-        font-size: 150%;
+        line-height: 100px;
+        font-size: 250%;
         margin-left: 40%;
+        
     }
 
    
@@ -63,6 +62,7 @@
         grid-template-columns: 1fr;
         grid-template-rows: 10% 10% 1fr 10%  10%  1fr;
         grid-gap: 5% ;
+        
     }
 
     #hide{
@@ -74,30 +74,36 @@
     #title{
         grid-column: 1;
         grid-row: 1;
+        /* background-color: bisque; */
     }
 
     #author{
         grid-column: 1;
         grid-row: 2;
+        background-color: bisque;
     }
     
     #description{
         grid-column: 1;
         grid-row: 3;
+        background-color: bisque;
     }
 
     #isbn{
         grid-column: 1;
         grid-row: 4;
+        background-color: bisque;
     }
 
     #bookself{
         grid-column: 1;
         grid-row: 5;
+        background-color: bisque;
     }
 
     #subbutton{
         grid-column: 1;
         grid-row: 6;
+        background-color: bisque;
     }
 }
