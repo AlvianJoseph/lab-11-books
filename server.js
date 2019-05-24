@@ -60,9 +60,13 @@ function Book(info) {
 // Request Handlers
 function loadHomePage(request, response) {
     let SQL = `SELECT * FROM books;`;
-    client.query(SQL)
-        .then(databaseResult => (response.render('pages/index', { books: databaseResult.rows })))
+    let count = `SELECT COUNT(*) FROM books WHERE id=$1;`;
+    //count still not working 
+    client.query(SQL, count)
+        .then(databaseResult => (response.render('pages/index', { books: databaseResult.rows})))
 }
+
+
 
 function doSearch(request, response) {
     let url = 'https://www.googleapis.com/books/v1/volumes?q=';
