@@ -44,7 +44,7 @@ app.post('/books', saveBook);
 app.get('/books/:id', getSpecificBook);
 app.put('/books/:id', updateBook);
 app.delete('/books/:id', deleteBook);
-app.get('*', (request, response) => response.status(404).send('This route does not exist'));
+app.get('*', handleError);
 
 function handleError(error, response) {
     response.render('pages/error', { error: 'Uh Oh' });
