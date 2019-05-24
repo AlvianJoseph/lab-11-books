@@ -1,79 +1,4 @@
 
-*, *:before, *:after {
-    box-sizing: border-box;
-}
-
-body{
-    margin: 0 auto;
-    background-image: url(../images/bookbackground2.jpg);
-    font-family: 'Rancho', cursive;
-}
-
-header{
-    margin: 0 auto;
-    text-align: center;
-    color: black;
-    font-family: 'Prompt', sans-serif;
-}
-
-nav {
-    margin: 0 auto;
-    text-align: center;
-    color: black;
-    font-family: 'Prompt', sans-serif;
-    font-weight: bold;  
-}
-
-main{
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-}
-
-.container {
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    text-align: center;
-    padding-top: 5%;
-    font-size: 0;
-    justify-content: center;
-}
-
-h2{
-    font-size: 8px;
-    color: black;
-    font-family: 'Prompt', sans-serif;
-}
-
-a:link {
-    text-decoration: none;
-  }
-
- p{
-    font-size: 7px;
-    font-family: 'Prompt', sans-serif;
-    color: black;
-}
-
-.description{
-overflow-y: auto;
-height: 25%;
-}
-
-section {
-    margin: 5px;
-    width: 22%;
-    height: 400px;
-    font-size: 0;
-    /* border: 2.5px solid black; */
-    background-color: darkolivegreen;
-    border: 1px solid black;
-    border-radius: 10px;
-}
-
 @media(min-width: 480px){
     
     h4{
@@ -128,15 +53,23 @@ section {
         
     }
 
-    #editbook{
+   
+
+    .savebook{
         margin: 0 auto;
-        max-width: 50%;
+        max-width: 100%;
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 10% 10% 1fr 10%  10%  1fr;
         grid-gap: 5% ;
         
     }
+
+    #hide{
+        display: none;
+    }
+     
+  
 
     #title{
         grid-column: 1;

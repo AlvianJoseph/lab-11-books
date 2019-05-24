@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Search Results</title>
-    <link rel="stylesheet" href="styles/modules.css">
+    <link rel="stylesheet" href="styles/apiresults.css">
+    <link rel="stylesheet" href="./styles/modules.css">
 </head>
 
 <body>
     <h1>Here are the results for <%= searchQuery %></h1>
     <div class="container">
-    <% searchResults.forEach(book => { %>
-    <section class =books>
-       <a href="<%= book.link %>"><h2> <%= book.title %> </h2></a>
-        <p>Written by: <%= book.authors %></p>
-        <img src="<%= book.image %>" alt="<%= book.title %>">
-        <p class="description"><%= book.description %></p>
-        <button>Select this book</button>
-    </section>
-    <% }) %>
+        <% searchResults.forEach(book => { %>
+        <section class='books'>
+            <div class='book'>
+                <a href="<%= book.link %>">
+                    <h2> <%= book.title %> </h2>
+                </a>
+                <p>Written by: <%= book.authors %></p>
+                <img src="<%= book.image %>" alt="<%= book.title %>">
+                <p><%= book.description %></p>
+            </div> 
+                <div id='#form'>
+                    <form class="savebook" id="hide" action="/books" method="post">
+                        <input id='title' type="text" name="title" value="<%- book.title %>" placeholder="title">
+                        <input id='author' type="text" name="author" value="<%- book.authors %>"
+                            placeholder="Contact Person">
+                        <input id='image' type="text" name="image" value="<%- book.image %>" placeholder="Book Cover">
+                        <textarea id='description' name="description" placeholder="Book description" cols="30"
+                            rows="10"><%- book.description %></textarea>
+                        <input id='isbn' type="text" name="isbn" value="<%= book.isbn %>" placeholder="ISBN">
+                        <input id='bookshelf' type="text" name="bookshelf" placeholder="Enter Bookshelf">
+                        <button id='subbutton'
+                            type="submit"><%- 'create' === formAction ? "Save This Book" : Book %></button>
+                    </form>
+            </div>
+            <button class='seeMore'>See More</button>
+        </section>
+        <% }) %>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="js/app.js"></script>
 </body>
+
 </html>
