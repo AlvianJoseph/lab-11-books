@@ -40,8 +40,14 @@
                       </form>
             </div>
             <button class='seeMore'>Edit Details</button>
+            <form id="delete-book" action="/books/<%- book.id %>" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <input type="submit" value="Delete Book">
+                </form>
+            </section>
         </section>
         <% }) %>
+        
     </div>
   </main>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

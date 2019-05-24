@@ -111,6 +111,7 @@ function updateBook(request, response) {
   }
 
   function saveBook(request, response) {
+      console.log('Book Saved');
     let { title, authors, description, isbn, bookshelf, image } = request.body;  
 
     let SQL = `INSERT INTO books (title, authors, description, isbn, bookshelf, image) 
@@ -124,6 +125,7 @@ function updateBook(request, response) {
   }
 
 function deleteBook(request, response) {
+    console.log('Book deleted');
     client.query('DELETE FROM books WHERE id=$1', [request.params.id])
     .then(result => response.redirect('/'));
 }
