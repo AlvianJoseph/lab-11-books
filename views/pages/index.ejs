@@ -9,16 +9,19 @@
 <body>
   <head>
       <link rel="stylesheet" href="styles/apiresults.css">
+      <link rel="stylesheet" href="styles/modules.css">
   </head>
   <header id="banner">
       <%- include('../layout/header') %>  
   </header>
   <main>
-    <div>
-        <div class="container">
-            <% books.forEach(book => { %>
-            <section class =books>
-               <a href="<%= book.link %>"><h2> <%= book.title %> </h2></a>
+    <div class="container">
+        <% books.forEach(book => { %>
+        <section class='books'>
+            <div class='book'>
+                <a href="<%= book.link %>">
+                    <h2> <%= book.title %> </h2>
+                </a>
                 <p>Written by: <%= book.authors %></p>
                 <img src="<%= book.image %>" alt="<%= book.title %>">
                 <p class="descriptionOn"><%= book.description %></p>
@@ -29,9 +32,13 @@
             </section>
             <% }) %>
             </div>
-        
-</div>
+            <button class='seeMore'>Edit Details</button>
+        </section>
+        <% }) %>
+    </div>
   </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>
